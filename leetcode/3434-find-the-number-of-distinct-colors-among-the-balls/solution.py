@@ -1,25 +1,23 @@
 class Solution(object):
     def queryResults(self, limit, queries):
-        ballColor = {}
-        colorCount = {}
-        ans = []
+        ball = {}
+        color = {}
         distinct = 0
+        result = []
 
-        for ball, color in queries:
-            if ball in ballColor:
-                old = ballColor[ball]
-                colorCount[old] -= 1
-                if colorCount[old] == 0:
+        for b, c in queries:
+            if b in ball:
+                old = ball[b]
+                color[old] -= 1
+                if color[old] == 0:
                     distinct -= 1
 
-            ballColor[ball] = color
-
-            if color not in colorCount or colorCount[color] == 0:
+            ball[b] = c
+            color[c] = color.get(c, 0) + 1
+            if color[c] == 1:
                 distinct += 1
 
-            colorCount[color] = colorCount.get(color, 0) + 1
+            result.append(distinct)
 
-            ans.append(distinct)
-
-        return ans
+        return result
 
